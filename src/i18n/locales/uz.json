@@ -1,0 +1,92 @@
+{
+  "nav": {
+    "home": "Asosiy",
+    "news": "Yangiliklar",
+    "about": "Biz haqimizda",
+    "services": "Xizmatlar",
+    "archive": "Arxiv",
+    "admin": "Admin",
+    "analytics": "Tahlil",
+    "contact": "Bog'lanish"
+  },
+  "hero": {
+    "active": "Tizim faol",
+    "title": "Mahalla Yo'riqnomasi",
+    "subtitle": "Raqamli Boshqaruv Markazi",
+    "desc": "Zamonaviy boshqaruv va raqamli xizmatlar orqali mahallamizni birgalikda rivojlantiramiz. Barcha muhim ma'lumotlar, murojaatlar va xizmatlar bir joyda.",
+    "introBtn": "Tanishuv",
+    "reportBtn": "Xabar berish",
+    "feat1": "100% Shaffof",
+    "feat2": "Tezkor Ijro",
+    "feat3": "To'g'ridan-to'g'ri Aloqa",
+    "solar": "Quyosh Chiroqlari",
+    "auto": "100% Avtomatlashtirilgan",
+    "citizens": "Faol Rezident",
+    "rating": "Reytingda ishtirokchi",
+    "monitor": "24/7 Monitoring"
+  },
+  "utilities": {
+    "title": "Kommunal Holat",
+    "details": "Batafsil",
+    "stability": "Tarmoq barqarorligi",
+    "status": {
+      "online": "Online",
+      "maintenance": "Ta'mirlash"
+    },
+    "items": {
+      "electric": {
+        "title": "Elektr energiyasi",
+        "desc": "Tarmoq barqaror ishlamoqda. Uzilishlar kutilmayapti."
+      },
+      "water": {
+        "title": "Suv ta'minoti",
+        "desc": "Markaziy nasos stansiyasida bosim me'yorda."
+      },
+      "gas": {
+        "title": "Tabiiy gaz",
+        "desc": "4-ko'chada profilaktika ishlari. Tiklanish: 18:00"
+      }
+    }
+  },
+  "theme": {
+    "light": "Yorqin Rejim",
+    "dark": "Qorong'i Rejim"
+  },
+  "newsGrid": {
+    "title": "Yangiliklar va E'lonlar",
+    "subtitle": "Mahallamizdagi so'nggi o'zgarishlar, bo'lajak tadbirlar va muhim e'lonlar bilan tanishing.",
+    "filters": {
+      "all": "BARCHASI",
+      "hashar": "HASHARLAR",
+      "utility": "KOMMUNAL TA'MIRLASH",
+      "meeting": "YIG'ILISHLAR",
+      "cultural": "MADANIY TADBIRLAR"
+    },
+    "searchPlaceholder": "Yangiliklarni qidirish...",
+    "readMore": "Batafsil"
+  },
+  "stats": {
+    "title": "Mahalla Statistikasi",
+    "subtitle": "Raqamli mahallamizning qisqacha ko'rsatkichlari",
+    "population": "Jami Aholi",
+    "families": "Xonadonlar",
+    "requests": "Murojaatlar",
+    "solved": "Hal etilgan"
+  },
+  "howItWorks": {
+    "title": "Tizim qanday ishlaydi?",
+    "subtitle": "Muammoni hal qilishning 4 ta oddiy qadami",
+    "step1": "Muammoni aniqlash",
+    "step1Desc": "Nosozlik yoki muammoni rasmga oling",
+    "step2": "Murojaat yuborish",
+    "step2Desc": "Ilova orqali manzil va tafsilotlarni kiriting",
+    "step3": "Kuzatish",
+    "step3Desc": "Murojaat holatini real vaqtda kuzatib boring",
+    "step4": "Baho berish",
+    "step4Desc": "Bajarilgan ish sifatiga baho bering"
+  },
+  "beforeAfter": {
+    "title": "Oldin va Keyin",
+    "subtitle": "Mahallamizda amalga oshirilgan amaliy ishlar natijasi"
+  }
+}

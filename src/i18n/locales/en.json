@@ -1,0 +1,92 @@
+{
+  "nav": {
+    "home": "Home",
+    "news": "News",
+    "about": "About Us",
+    "services": "Services",
+    "archive": "Archive",
+    "admin": "Admin",
+    "analytics": "Analytics",
+    "contact": "Contact"
+  },
+  "hero": {
+    "active": "System Active",
+    "title": "Mahalla Guide",
+    "subtitle": "Digital Management Center",
+    "desc": "Developing our neighborhood together through modern management and digital services. All important info, requests, and services in one place.",
+    "introBtn": "Introduction",
+    "reportBtn": "Report Issue",
+    "feat1": "100% Transparent",
+    "feat2": "Fast Execution",
+    "feat3": "Direct Contact",
+    "solar": "Solar Lights",
+    "auto": "100% Automated",
+    "citizens": "Active Citizens",
+    "rating": "Rating Participant",
+    "monitor": "24/7 Monitoring"
+  },
+  "utilities": {
+    "title": "Utility Status",
+    "details": "Details",
+    "stability": "Network Stability",
+    "status": {
+      "online": "Online",
+      "maintenance": "Maintenance"
+    },
+    "items": {
+      "electric": {
+        "title": "Electricity",
+        "desc": "Network is stable. No interruptions expected."
+      },
+      "water": {
+        "title": "Water Supply",
+        "desc": "Pressure is normal at the central pump station."
+      },
+      "gas": {
+        "title": "Natural Gas",
+        "desc": "Maintenance on 4th street. Restoration: 18:00"
+      }
+    }
+  },
+  "theme": {
+    "light": "Light Mode",
+    "dark": "Dark Mode"
+  },
+  "newsGrid": {
+    "title": "News & Announcements",
+    "subtitle": "Stay up to date with recent changes, upcoming events, and important announcements in our mahalla.",
+    "filters": {
+      "all": "ALL",
+      "hashar": "COMMUNITY WORK",
+      "utility": "UTILITIES",
+      "meeting": "MEETINGS",
+      "cultural": "CULTURAL EVENTS"
+    },
+    "searchPlaceholder": "Search news...",
+    "readMore": "Read more"
+  },
+  "stats": {
+    "title": "Mahalla Statistics",
+    "subtitle": "Brief overview of our digital mahalla indicators",
+    "population": "Total Population",
+    "families": "Households",
+    "requests": "Total Requests",
+    "solved": "Issues Solved"
+  },
+  "howItWorks": {
+    "title": "How it works?",
+    "subtitle": "4 simple steps to solve the issue",
+    "step1": "Identify",
+    "step1Desc": "Take a photo of the defect or issue",
+    "step2": "Submit",
+    "step2Desc": "Enter address and details via the app",
+    "step3": "Track",
+    "step3Desc": "Track the status in real-time",
+    "step4": "Rate",
+    "step4Desc": "Rate the quality of the executed work"
+  },
+  "beforeAfter": {
+    "title": "Before and After",
+    "subtitle": "Results of the practical work implemented in our mahalla"
+  }
+}
