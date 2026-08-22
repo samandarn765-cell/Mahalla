@@ -17,6 +17,7 @@ export const ASSETS = {
   // Backgrounds and Textures
   backgrounds: {
     girih: '/src/assets/images/girih-pattern.jpg',
+    hero: '/image copy.png',
   },
   
   // Yangiliklar rasmlari (src/assets/images/news-1.jpg ...)

@@ -1,18 +1,11 @@
 import React, { useState } from 'react';
-import { Image as ImageIcon, Sparkles } from 'lucide-react';
+import { Image as ImageIcon } from 'lucide-react';
 
-/**
- * ImagePlaceholder - Senior Architectural Asset Component
- * Checks if the given image src exists and loads. If image is missing or loading fails,
- * it renders a clean, pixel-perfect, aesthetic placeholder with dimensions and label
- * so the user can easily drop their image in src/assets/images/ or src/assets/logos/.
- */
 export const ImagePlaceholder = ({
   src,
   alt = 'Rasm joyi',
   className = '',
-  aspectRatio = 'aspect-video',
-  placeholderText = "Rasm qo'ying (assets/images/)",
+  placeholderText = "Rasm",
   icon: CustomIcon
 }) => {
   const [hasError, setHasError] = useState(!src);
@@ -22,6 +15,8 @@ export const ImagePlaceholder = ({
       <img
         src={src}
         alt={alt}
+        loading="lazy"
+        decoding="async"
         onError={() => setHasError(true)}
         className={`${className} object-cover`}
       />
@@ -37,9 +32,6 @@ export const ImagePlaceholder = ({
       </div>
       <span className="text-[11px] font-semibold text-slate-300 group-hover:text-cyan-300 transition-colors">
         {alt || placeholderText}
-      </span>
-      <span className="text-[9px] text-slate-400 mt-0.5 font-mono">
-        src/assets/images/
       </span>
     </div>
   );

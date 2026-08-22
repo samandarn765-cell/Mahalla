@@ -10,8 +10,8 @@ export const BeforeAfterSlider = () => {
     {
       id: 1,
       title: "Alisher Navoiy ko'chasi — Yo'l va chiroqlar yangilandi",
-      beforeImg: "https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?w=1000&auto=format&fit=crop&q=80",
-      afterImg: "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=1000&auto=format&fit=crop&q=80",
+      beforeImg: "/src/assets/images/road-before.jpg",
+      afterImg: "/src/assets/images/road-after.jpg",
       category: "Yo'l va Yoritish",
       time: "3 kun ichida hal etildi"
     }
@@ -45,6 +45,8 @@ export const BeforeAfterSlider = () => {
             <img
               src={current.afterImg}
               alt="After Fix"
+              loading="lazy"
+              decoding="async"
               className="absolute inset-0 w-full h-full object-cover"
             />
             <div className="absolute top-4 right-4 px-3 py-1 rounded-xl bg-emerald-600/90 text-white text-xs font-bold shadow-lg">
@@ -59,6 +61,8 @@ export const BeforeAfterSlider = () => {
               <img
                 src={current.beforeImg}
                 alt="Before Fix"
+                loading="lazy"
+                decoding="async"
                 className="absolute inset-0 w-full h-full object-cover max-w-none"
                 style={{ width: '100%', minWidth: '100%' }}
               />

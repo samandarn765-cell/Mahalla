@@ -1,197 +1,198 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { useMahalla } from '../../context/MahallaContext';
 import { useTranslation } from 'react-i18next';
 import {
-  Sparkles,
   Camera,
-  Compass,
   CheckCircle2,
   Zap,
-  ShieldCheck,
   TrendingUp,
   Sun,
-  Activity
+  Activity,
+  Compass
 } from 'lucide-react';
-import logoImg from '../../assets/logo/logo.png';
-import { ASSETS } from '../../assets/assetsManager';
 
 export const HeroSection = () => {
-  const { setActiveTab, setIsReportModalOpen } = useMahalla();
+  const { setIsReportModalOpen } = useMahalla();
   const { t } = useTranslation();
+  const sectionRef = useRef(null);
+
+  // Smooth scroll-driven shrink animation for the 3D model
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"]
+  });
+
+  const modelScale = useTransform(scrollYProgress, [0, 0.9], [1, 0.84]);
+  const modelOpacity = useTransform(scrollYProgress, [0, 0.9], [1, 0.8]);
 
   return (
-    <section className="relative pt-12 pb-16 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Main Hero Card 1-to-1 Layout with Organic Spring Animation */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ type: 'spring', stiffness: 85, damping: 18 }}
-          className="relative rounded-[32px] bg-white dark:bg-[#141f3d] border border-gray-200 dark:border-[#252F43] p-8 sm:p-12 lg:p-16 overflow-hidden shadow-xl dark:shadow-[0_20px_50px_rgba(0,0,0,0.6)] transition-colors duration-300"
+    <section ref={sectionRef} className="relative pt-4 sm:pt-6 pb-8 sm:pb-12">
+      {/* Hero Atmosphere Background Layer - Fully covers the entire Hero section */}
+      <div 
+        className="absolute inset-0 z-0 pointer-events-none overflow-hidden"
+        style={{
+          WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 86%, rgba(0,0,0,0.5) 94%, transparent 100%)',
+          maskImage: 'linear-gradient(to bottom, black 0%, black 86%, rgba(0,0,0,0.5) 94%, transparent 100%)'
+        }}
+      >
+        <motion.div 
+          animate={{ scale: [1.45, 1.55, 1.45] }}
+          transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
+          className="absolute -inset-14 sm:-inset-20 origin-center"
+          style={{
+            backgroundImage: "url('/image copy.png')",
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}
         >
-          {/* Subtle static gradient glow accents */}
-          <div className="absolute -top-24 -left-24 w-96 h-96 bg-amber-500/10 rounded-full filter blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-cyan-500/10 rounded-full filter blur-3xl pointer-events-none" />
+          {/* Subtle Adaptive Overlay for Crisp Contrast */}
+          <div className="absolute inset-0 bg-white/30 dark:bg-[#0A0F1D]/50" />
+        </motion.div>
+      </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
+          className="relative rounded-3xl bg-white/85 dark:bg-[#141f3d]/85 backdrop-blur-2xl border border-white/60 dark:border-[#252F43]/90 p-6 sm:p-8 lg:p-10 overflow-hidden shadow-2xl dark:shadow-[0_20px_50px_rgba(0,0,0,0.6)] transition-colors duration-300"
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center relative z-10">
             
             {/* Left Content Column */}
-            <div className="lg:col-span-7 space-y-6 text-left">
+            <div className="lg:col-span-7 space-y-4 sm:space-y-5 text-left">
               
-              {/* Status Badge */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.15 }}
-                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-xs font-semibold shadow-inner"
-              >
-                <span className="w-2 h-2 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-ping" />
-                <span className="w-2 h-2 rounded-full bg-emerald-500 dark:bg-emerald-400 -ml-3" />
-                <span>{t('hero.active')}</span>
-              </motion.div>
+              {/* Status Badge without pulsing animation */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100 dark:bg-emerald-950/70 border border-emerald-300 dark:border-emerald-500/40 text-emerald-700 dark:text-emerald-400 text-xs sm:text-sm font-semibold shadow-inner">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 dark:bg-emerald-400" />
+                <span>{t('hero.active', { defaultValue: 'Tizim faol' })}</span>
+              </div>
 
               {/* Exact Golden Serif Heading */}
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.25, type: 'spring', stiffness: 90 }}
-                className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 dark:text-white leading-[1.15]"
-              >
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-gray-900 dark:text-white leading-[1.14]">
                 <span className="text-amber-500 dark:text-gold-gradient font-serif-gold block drop-shadow-md">
-                  {t('hero.title')}
+                  {t('hero.title', { defaultValue: "Mahalla Yo'riqnomasi" })}
                 </span>
-                <span className="text-2xl sm:text-3xl lg:text-4xl font-light text-gray-600 dark:text-slate-300 mt-2 block">
-                  {t('hero.subtitle')}
+                <span className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 dark:text-cyan-400 block mt-2 font-heading tracking-normal">
+                  {t('hero.subtitle', { defaultValue: 'Raqamli Boshqaruv Markazi' })}
                 </span>
-              </motion.h1>
+              </h1>
 
-              {/* Subtitle */}
-              <motion.p
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.35 }}
-                className="text-base sm:text-lg text-gray-600 dark:text-slate-300 leading-relaxed max-w-xl font-normal"
-              >
-                {t('hero.desc')}
-              </motion.p>
+              {/* Description */}
+              <p className="text-sm sm:text-base text-gray-600 dark:text-slate-300 max-w-xl font-normal leading-relaxed">
+                {t('hero.desc', { 
+                  defaultValue: "Zamonaviy boshqaruv va raqamli xizmatlar orqali mahallamizni birgalikda rivojlantiramiz. Barcha muhim ma'lumotlar, murojaatlar va xizmatlar bir joyda." 
+                })}
+              </p>
 
-              {/* Exact CTA Buttons with Organic Spring Hovers */}
-              <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.45 }}
-                className="flex flex-wrap items-center gap-4 pt-2"
-              >
-                <motion.button
-                  whileHover={{ scale: 1.04, y: -2 }}
-                  whileTap={{ scale: 0.97 }}
-                  onClick={() => setActiveTab('about')}
-                  className="px-7 py-3.5 rounded-2xl font-bold text-slate-950 bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-400 hover:from-amber-300 hover:to-yellow-300 shadow-[0_0_25px_rgba(245,158,11,0.4)] hover:shadow-[0_0_35px_rgba(245,158,11,0.6)] transition-all duration-300 flex items-center gap-2"
-                >
-                  <Compass className="w-5 h-5 text-slate-900" />
-                  <span>{t('hero.introBtn')}</span>
-                </motion.button>
-
-                <motion.button
-                  whileHover={{ scale: 1.04, y: -2 }}
-                  whileTap={{ scale: 0.97 }}
+              {/* Action Buttons */}
+              <div className="flex flex-wrap items-center gap-3.5 pt-2">
+                <button
                   onClick={() => setIsReportModalOpen(true)}
-                  className="px-7 py-3.5 rounded-2xl font-bold text-white bg-slate-800 dark:bg-slate-900/80 hover:bg-slate-700 dark:hover:bg-slate-800 border border-transparent dark:border-white/15 dark:hover:border-cyan-400/50 shadow-lg dark:hover:shadow-[0_0_20px_rgba(6,182,212,0.3)] transition-all duration-300 flex items-center gap-2"
+                  className="px-6 py-3 sm:px-7 sm:py-3.5 rounded-xl bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 text-slate-950 font-bold text-sm sm:text-base shadow-[0_10px_25px_rgba(245,158,11,0.35)] hover:shadow-[0_15px_32px_rgba(245,158,11,0.5)] transition-all flex items-center gap-2.5 cursor-pointer active:scale-95 hover:scale-[1.02]"
                 >
-                  <Camera className="w-5 h-5 text-cyan-400" />
-                  <span>{t('hero.reportBtn')}</span>
-                </motion.button>
-              </motion.div>
+                  <Camera className="w-5 h-5 text-slate-950" />
+                  <span>{t('hero.reportBtn', { defaultValue: 'Xabar berish' })}</span>
+                </button>
 
-              {/* Micro-stats features */}
-              <div className="grid grid-cols-3 gap-3 pt-6 border-t border-gray-200 dark:border-white/[0.08] text-xs">
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-500 dark:text-emerald-400 shrink-0" />
-                  <span className="text-gray-700 dark:text-slate-300 font-medium">{t('hero.feat1')}</span>
+                <button
+                  onClick={() => {
+                    const el = document.getElementById('utilities-section');
+                    el?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="px-6 py-3 sm:px-7 sm:py-3.5 rounded-xl bg-gray-100 hover:bg-gray-200 dark:bg-[#0c182c] dark:hover:bg-[#10223f] text-gray-800 dark:text-slate-200 font-bold text-sm sm:text-base border border-gray-300 dark:border-cyan-500/30 transition-all flex items-center gap-2.5 cursor-pointer active:scale-95 hover:scale-[1.02] shadow-[0_4px_15px_rgba(0,0,0,0.2)]"
+                >
+                  <Compass className="w-5 h-5 text-cyan-500 dark:text-cyan-400" />
+                  <span>{t('hero.introBtn', { defaultValue: 'Tanishuv' })}</span>
+                </button>
+              </div>
+
+              {/* Trust Badges */}
+              <div className="flex flex-wrap items-center gap-5 pt-2 text-xs sm:text-sm font-semibold text-gray-500 dark:text-slate-400">
+                <div className="flex items-center gap-1.5">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-500 dark:text-emerald-400" />
+                  <span>100% Shaffof</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Zap className="w-4 h-4 text-amber-500 dark:text-amber-400 shrink-0" />
-                  <span className="text-gray-700 dark:text-slate-300 font-medium">{t('hero.feat2')}</span>
+                <div className="flex items-center gap-1.5">
+                  <Zap className="w-4 h-4 text-amber-500 dark:text-amber-400" />
+                  <span>Tezkor ijro</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4 text-cyan-500 dark:text-cyan-400 shrink-0" />
-                  <span className="text-gray-700 dark:text-slate-300 font-medium">{t('hero.feat3')}</span>
+                <div className="flex items-center gap-1.5">
+                  <Activity className="w-4 h-4 text-cyan-500 dark:text-cyan-400" />
+                  <span>To'g'ridan-to'g'ri Aloqa</span>
                 </div>
               </div>
+
             </div>
 
-            {/* Right Visual 3D Isometric Interactive Mahalla Model */}
+            {/* Right Visual 3D Interactive Mahalla Model */}
             <div className="lg:col-span-5 relative flex items-center justify-center">
-              
-              <div className="relative w-72 h-72 sm:w-88 sm:h-88 rounded-full border border-gray-200 dark:border-cyan-500/20 flex items-center justify-center">
-                <div className="absolute inset-0 rounded-full border border-dashed border-gray-300 dark:border-amber-500/20 animate-spin" style={{ animationDuration: '60s' }} />
+              <div className="relative w-80 h-80 sm:w-[460px] sm:h-[460px] lg:w-[500px] lg:h-[500px] flex items-center justify-center">
                 
-                {/* Center Glowing Mahalla Core */}
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  className="w-52 h-52 sm:w-64 sm:h-64 rounded-full bg-white dark:bg-gradient-to-tr dark:from-cyan-950/60 dark:via-slate-900/90 dark:to-amber-950/40 p-4 sm:p-6 flex flex-col items-center justify-center text-center shadow-md dark:shadow-[0_0_50px_rgba(6,182,212,0.25)] border border-gray-200 dark:border-white/10 relative overflow-hidden"
+                {/* 3D Mahalla Model with scroll shrink animation */}
+                <motion.div 
+                  style={{ scale: modelScale, opacity: modelOpacity }}
+                  whileHover={{ scale: 1.03 }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                  className="w-full h-full flex flex-col items-center justify-center text-center relative z-10"
                 >
                   <img
-                    src={logoImg}
-                    alt="Mahalla Emblem"
-                    className="w-full h-full object-contain filter drop-shadow-sm dark:drop-shadow-[0_0_15px_rgba(245,158,11,0.5)]"
+                    src="/image.png"
+                    alt="Mahalla 3D Model"
+                    loading="eager"
+                    decoding="async"
+                    fetchPriority="high"
+                    width="500"
+                    height="500"
+                    className="w-full h-full object-contain filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.65)] scale-[1.5] sm:scale-[1.62]"
                   />
-                  <span className="mt-2 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-cyan-600 dark:text-cyan-300">
-                    Smart Mahalla 2024
+                </motion.div>
+
+                {/* Floating status badge 1: Solar Lighting (Close to 3D model with full readable size) */}
+                <div className="absolute top-5 left-5 sm:top-8 sm:left-10 p-2.5 sm:p-3 rounded-2xl bg-[#091222]/92 dark:bg-[#070e1b]/95 backdrop-blur-md border border-cyan-500/40 shadow-[0_4px_25px_rgba(6,182,212,0.35)] flex items-center gap-2.5 sm:gap-3 z-30 transition-all hover:scale-105">
+                  <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-cyan-950/80 border border-cyan-500/40 flex items-center justify-center text-cyan-400 shadow-inner">
+                    <Sun className="w-4 h-4 sm:w-5 sm:h-5" />
+                  </div>
+                  <div className="text-left">
+                    <div className="text-xs sm:text-sm font-bold text-white tracking-wide">
+                      {t('hero.solar', { defaultValue: 'Quyosh Chiroqlari' })}
+                    </div>
+                    <div className="text-[10px] sm:text-xs text-emerald-400 font-semibold mt-0.5">
+                      {t('hero.auto', { defaultValue: '100% Avtomatlashtirilgan' })}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Floating status badge 2: 24/7 Monitoring (Close to 3D model right edge with full readable size) */}
+                <div className="absolute top-[48%] right-3 sm:right-8 -translate-y-1/2 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-2xl bg-[#091222]/92 dark:bg-[#070e1b]/95 backdrop-blur-md border border-emerald-500/50 shadow-[0_4px_25px_rgba(16,185,129,0.35)] flex items-center gap-2 z-30 transition-all hover:scale-105">
+                  <Activity className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400" />
+                  <span className="text-xs sm:text-sm font-bold text-emerald-400 tracking-wide">
+                    {t('hero.monitor', { defaultValue: '24/7 Monitoring' })}
                   </span>
-                </motion.div>
+                </div>
 
-                {/* Floating 3D status badge 1: Solar Lighting */}
-                <motion.div
-                  initial={{ y: 0 }}
-                  animate={{ y: [-5, 5, -5] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                  className="absolute -top-3 left-4 p-3 rounded-2xl bg-white dark:bg-slate-900/50 backdrop-blur-md border border-cyan-200 dark:border-cyan-400/40 shadow-lg flex items-center gap-2.5"
-                >
-                  <div className="w-8 h-8 rounded-xl bg-cyan-100 dark:bg-cyan-500/20 flex items-center justify-center text-cyan-600 dark:text-cyan-400">
-                    <Sun className="w-4 h-4" />
+                {/* Floating status badge 3: Active Citizens (Close to 3D model bottom right with full readable size) */}
+                <div className="absolute bottom-5 right-5 sm:bottom-8 sm:right-10 p-2.5 sm:p-3 rounded-2xl bg-[#091222]/92 dark:bg-[#070e1b]/95 backdrop-blur-md border border-amber-500/40 shadow-[0_4px_25px_rgba(245,158,11,0.35)] flex items-center gap-2.5 sm:gap-3 z-30 transition-all hover:scale-105">
+                  <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-amber-950/80 border border-amber-500/40 flex items-center justify-center text-amber-400 shadow-inner">
+                    <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5" />
                   </div>
                   <div className="text-left">
-                    <div className="text-[11px] font-bold text-gray-800 dark:text-white">{t('hero.solar')}</div>
-                    <div className="text-[9px] text-emerald-600 dark:text-emerald-400 font-semibold">{t('hero.auto')}</div>
+                    <div className="text-xs sm:text-sm font-bold text-white tracking-wide">
+                      {t('hero.citizens', { defaultValue: 'Faol Rezident' })}
+                    </div>
+                    <div className="text-[10px] sm:text-xs text-amber-400 font-semibold mt-0.5">
+                      {t('hero.rating', { defaultValue: 'Reytingda ishtirokchi' })}
+                    </div>
                   </div>
-                </motion.div>
-
-                {/* Floating 3D status badge 2: Active Citizens */}
-                <motion.div
-                  initial={{ y: 0 }}
-                  animate={{ y: [5, -5, 5] }}
-                  transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-                  className="absolute -bottom-4 right-2 p-3 rounded-2xl bg-white dark:bg-slate-900/50 backdrop-blur-md border border-amber-200 dark:border-amber-400/40 shadow-lg flex items-center gap-2.5"
-                >
-                  <div className="w-8 h-8 rounded-xl bg-amber-100 dark:bg-amber-500/20 flex items-center justify-center text-amber-600 dark:text-amber-400">
-                    <TrendingUp className="w-4 h-4" />
-                  </div>
-                  <div className="text-left">
-                    <div className="text-[11px] font-bold text-gray-800 dark:text-white">3,850+ {t('hero.citizens')}</div>
-                    <div className="text-[9px] text-amber-600 dark:text-amber-400 font-semibold">{t('hero.rating')}</div>
-                  </div>
-                </motion.div>
-
-                {/* Floating 3D status badge 3: 24/7 Monitoring */}
-                <motion.div
-                  initial={{ scale: 0.95 }}
-                  animate={{ scale: [0.95, 1.05, 0.95] }}
-                  transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
-                  className="absolute top-1/2 -right-6 -translate-y-1/2 p-2.5 rounded-2xl bg-white dark:bg-slate-900/50 backdrop-blur-md border border-emerald-200 dark:border-emerald-400/40 shadow-lg flex items-center gap-2"
-                >
-                  <Activity className="w-4 h-4 text-emerald-500 dark:text-emerald-400" />
-                  <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-300">{t('hero.monitor')}</span>
-                </motion.div>
+                </div>
 
               </div>
             </div>
 
           </div>
         </motion.div>
-
       </div>
     </section>
   );

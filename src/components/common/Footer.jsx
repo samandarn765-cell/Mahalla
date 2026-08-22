@@ -30,6 +30,10 @@ export const Footer = () => {
                 <img
                   src={logoImg}
                   alt="Emblem"
+                  loading="lazy"
+                  decoding="async"
+                  width="40"
+                  height="40"
                   className="w-full h-full object-cover filter drop-shadow-[0_0_6px_rgba(56,189,248,0.5)]"
                 />
               </div>
@@ -170,6 +174,10 @@ export const Footer = () => {
             </button>
             <a href="#privacy" className="hover:text-cyan-400 transition-colors">
               Maxfiylik
+            </a>
+            <a href="/admin" className="text-slate-600 hover:text-amber-400 transition-colors ml-4" title="Admin Panel">
+              <ShieldAlert className="w-3 h-3 inline-block mr-1 opacity-50" />
+              Admin
             </a>
           </div>
         </div>

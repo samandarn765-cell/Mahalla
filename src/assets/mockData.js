@@ -72,7 +72,7 @@ export const INITIAL_NEWS = [
     readTime: "3 daqiqa",
     excerpt: "Mahallamiz obodonchiligi uchun barchani shanba kungi umumxalq hashariga taklif qilamiz. Asosiy e'tibor bolalar maydonchalari va ariqlarni tozalashga qaratiladi.",
     fullContent: "Hurmatli mahalla ahlari! Joriy yilning 24-oktyabr shanba kuni mahallamiz bo'ylab keng ko'lamli 'Yashil Makon' umumxalq obodonlashtirish hashari bo'lib o'tadi. Barcha xonadon egalari, yoshlar va faollarni o'z uylari atrofi, ko'chalar va xiyobonlarni tartibga keltirish, 200 dan ortiq manzarali va mevali daraxt ko'chatlarini ekish aksiyasida faol ishtirok etishga chaqiramiz. Hashar ishtirokchilari uchun issiq choy va palov tashkil etiladi.",
-    image: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800&auto=format&fit=crop&q=80",
+    image: "/src/assets/images/news-hashar.jpg",
     views: 432,
     author: "Mahalla Kengashi"
   },
@@ -86,7 +86,7 @@ export const INITIAL_NEWS = [
     readTime: "4 daqiqa",
     excerpt: "Navoiy ko'chasidagi eski ichimlik suvi quvurlarini yangisiga almashtirish ishlari boshlanmoqda. Shu munosabat bilan vaqtinchalik cheklovlar kiritiladi.",
     fullContent: "Mahallamizning Alisher Navoiy va Ibn Sino ko'chalarida 35 yildan beri xizmat qilayotgan markaziy suv quvurlarini yangi polietilen yuqori bosimli quvurlarga almashtirish loyihasi boshlandi. Ishlar 3 kun davom etadi. Suv ta'minotida qisqa muddatli uzilishlar bo'lganida mahalla guzari orqali maxsus suv tashuvchi mashinalar bepul xizmat ko'rsatadi.",
-    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&auto=format&fit=crop&q=80",
+    image: "/src/assets/images/news-water.jpg",
     views: 521,
     author: "Suv Ta'minoti Korxonasi"
   },
@@ -100,7 +100,7 @@ export const INITIAL_NEWS = [
     readTime: "2 daqiqa",
     excerpt: "Mahalla fuqarolar yig'inida qishki mavsumga tayyorgarlik bo'yicha oqsoqollar kengashining navbatdagi muhim maslahat yig'ilishi o'tkaziladi.",
     fullContent: "2-noyabr kuni soat 10:00 da Mahalla Markazida Oqsoqollar va ko'cha boshilari kengashi yig'iladi. Kun tartibida: kam ta'minlangan oilalarni qish mavsumiga tayyorlash, isitish tizimlarini tekshirish, yangi ko'cha chiroqlari o'rnatilgan hududlarni monitoring qilish va jamoat tartibini saqlash masalalari ko'rib chiqiladi.",
-    image: "https://images.unsplash.com/photo-1577495508048-b635879837f1?w=800&auto=format&fit=crop&q=80",
+    image: "/src/assets/images/news-meeting.jpg",
     views: 310,
     author: "Mahalla Kotibiyati"
   },
@@ -114,7 +114,7 @@ export const INITIAL_NEWS = [
     readTime: "3 daqiqa",
     excerpt: "Mahallamiz yoshlari va keksalar o'rtasida shaxmat bo'yicha 'Mahalla Kubogi' musobaqasi o'tkaziladi. G'oliblarni qimmatbaho sovg'alar kutmoqda.",
     fullContent: "Mahalla Yoshlar yetakchisi tashabbusi bilan 4-noyabr kuni Mahalla bog'ida an'anaviy 'Zakovat va Shaxmat' turniri tashkil etiladi. Musobaqa 3 ta yosh toifasida (bolalar, o'smirlar va keksalar) o'tkaziladi. 1-, 2- va 3-o'rin sohiblariga noutbuk, planshet va shaxmat to'plamlari taqdim etiladi. Ro'yxatdan o'tish Telegram orqali.",
-    image: "https://images.unsplash.com/photo-1529699211952-734e80c4d42b?w=800&auto=format&fit=crop&q=80",
+    image: "/src/assets/images/news-chess.jpg",
     views: 680,
     author: "Yoshlar Yetakchisi"
   },
@@ -128,7 +128,7 @@ export const INITIAL_NEWS = [
     readTime: "5 daqiqa",
     excerpt: "Kelgusi yil uchun mahallamizni obodonlashtirish, yangi bolalar maydonchalari qurish va yashil xiyobonlar yaratish loyihasi jamoatchilikka taqdim etildi.",
     fullContent: "Tuman hokimligi va mahalla faollari hamkorligida 2025-yilga mo'ljallangan 'Tashabbusli Byudjet' loyihasi doirasida 3 ta yangi 'Workout' sport maydonchasi, 2 ta zamonaviy bolalar o'yingohi va 1.5 km piyodalar ekoyo'lagi loyihasi taqdimoti bo'lib o'tadi. Fuqarolar o'z taklif va ovozlarini saytimiz orqali bildirishi mumkin.",
-    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&auto=format&fit=crop&q=80",
+    image: "/src/assets/images/news-greenery.jpg",
     views: 450,
     author: "Hokim Yordamchisi"
   },
@@ -142,7 +142,7 @@ export const INITIAL_NEWS = [
     readTime: "3 daqiqa",
     excerpt: "Navoiy va Abdulla Qodiriy ko'chalarida zamonaviy, energiya tejamkor quyosh panelli ko'cha chiroqlari o'rnatish ishlari muvaffaqiyatli yakunlandi.",
     fullContent: "Aholi murojaatlariga asosan mahallamizning yoritilmagan 6 ta berk ko'chasi va asosiy yo'l bo'ylariga 48 ta zamonaviy 'Smart LED' chiroqlari o'rnatildi. Ushbu chiroqlar quyosh energiyasida ishlaydi va harakat datchiklari bilan jihozlangan bo'lib, tungi vaqtda xavfsizlikni to'liq ta'minlaydi.",
-    image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&auto=format&fit=crop&q=80",
+    image: "/src/assets/images/news-lights.jpg",
     views: 890,
     author: "Obodonlashtirish Boshqarmasi"
   }
@@ -236,7 +236,7 @@ export const INITIAL_MASTERS = [
     description: "Maktab o'quvchilari va abituriyentlar uchun individual va guruh darslari (IELTS 8.0).",
     experience: "5 yil tajriba",
     available: true,
-    avatar: "https://images.unsplash.com/photo-1580894732415-3733c706e2fa?w=300&auto=format&fit=crop&q=80"
+    avatar: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&auto=format&fit=crop&q=80"
   },
   {
     id: 4,

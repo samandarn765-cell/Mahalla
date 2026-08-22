@@ -187,6 +187,11 @@ export const LeaderboardPage = () => {
                     <div>
                       <h4 className="text-xs sm:text-sm font-bold text-white">{user.name}</h4>
                       <p className="text-[11px] text-slate-400">{user.reportsCount} ta hal qilingan murojaat</p>
+                      {user.badge && (
+                        <div className="mt-1 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-cyan-500/10 text-[10px] text-cyan-400 border border-cyan-500/20">
+                          <Award className="w-3 h-3" /> {user.badge}
+                        </div>
+                      )}
                     </div>
                   </div>
 

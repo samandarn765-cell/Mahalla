@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import {
   MAHALLA_INFO,
   INITIAL_UTILITIES,
@@ -10,10 +10,30 @@ import {
   REWARDS,
   EMERGENCY_CONTACTS
 } from '../assets/mockData';
+import { apiService } from '../services/api';
 
 const MahallaContext = createContext();
 
 export const MahallaProvider = ({ children }) => {
+  // Authentication states
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return localStorage.getItem('mahalla_auth') === 'true';
+  });
+  const [userRole, setUserRole] = useState(() => {
+    return localStorage.getItem('mahalla_role') || null;
+  });
+  const [authToken, setAuthToken] = useState(() => {
+    return localStorage.getItem('mahalla_token') || null;
+  });
+  const [userData, setUserData] = useState(() => {
+    const saved = localStorage.getItem('mahalla_user_data');
+    try {
+      return saved ? JSON.parse(saved) : null;
+    } catch {
+      return null;
+    }
+  });
+
   const [activeTab, setActiveTab] = useState('home');
   const [language, setLanguage] = useState(localStorage.getItem('i18nextLng') || 'uz');
   const [theme, setTheme] = useState(localStorage.getItem('mahalla_theme') || 'light');
@@ -29,6 +49,7 @@ export const MahallaProvider = ({ children }) => {
   }, [theme]);
 
   // Data States
+  const [mahallaInfo, setMahallaInfo] = useState(MAHALLA_INFO);
   const [utilities, setUtilities] = useState(INITIAL_UTILITIES);
   const [newsList, setNewsList] = useState(INITIAL_NEWS);
   const [leaders, setLeaders] = useState(LEADERS);
@@ -38,146 +59,334 @@ export const MahallaProvider = ({ children }) => {
   const [rewards] = useState(REWARDS);
   const [emergencyContacts] = useState(EMERGENCY_CONTACTS);
 
+  // Admin Panel specific states
+  const [residentsList, setResidentsList] = useState([
+    { id: 1, name: "Aliyev Vali", phone: "+998 90 123 45 67", address: "Navoiy ko'chasi, 12-uy", status: "Faol" },
+    { id: 2, name: "Karimova Nargiza", phone: "+998 93 987 65 43", address: "Bog'ishamol ko'chasi, 5-uy", status: "Faol" },
+    { id: 3, name: "Samatov Rustam", phone: "+998 97 111 22 33", address: "Navoiy ko'chasi, 18-uy", status: "Faol" },
+    { id: 4, name: "Toshmatov Eshmat", phone: "+998 99 444 55 66", address: "Do'stlik ko'chasi, 2-uy", status: "Faol" },
+    { id: 5, name: "Usmonov Jalol", phone: "+998 94 555 11 22", address: "Mustaqillik ko'chasi, 44-uy", status: "Bloklangan" }
+  ]);
+
+  const [servicesList, setServicesList] = useState([
+    { id: 1, name: "Santexnika xizmatlari", icon: "💧", count: 12 },
+    { id: 2, name: "Elektr ishlari", icon: "⚡", count: 8 },
+    { id: 3, name: "Gaz plita ta'miri", icon: "🔥", count: 5 },
+    { id: 4, name: "Tozalik va Maishiy", icon: "🧹", count: 15 },
+  ]);
+
   // UI & Interaction States
   const [selectedNews, setSelectedNews] = useState(null);
   const [selectedRequest, setSelectedRequest] = useState(null);
   const [selectedMaster, setSelectedMaster] = useState(null);
   const [selectedLeader, setSelectedLeader] = useState(null);
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isFundModalOpen, setIsFundModalOpen] = useState(false);
+  const [activeReceipt, setActiveReceipt] = useState(null);
   const [toasts, setToasts] = useState([]);
 
-  // Fetch initial data from backend
+  // Fund & Payments State
+  const [fundStats, setFundStats] = useState({
+    id: 1,
+    collected_amount: 0,
+    target_amount: 50000000,
+    target_title: "Bolalar o'yingohi va 'Yashil Makon' xiyoboni",
+    contributors_count: 0
+  });
+
+  const [paymentsList, setPaymentsList] = useState([
+    {
+      id: 1,
+      fiscal_id: 'CHK-8F92A1',
+      amount: 250000,
+      purpose: "Bolalar o'yingohi uchun xayriya",
+      provider: 'Payme',
+      payer_name: 'Abdurashid Karimov',
+      payer_phone: '+998 90 123 45 67',
+      card_mask: '8600 **** **** 1234',
+      status: 'completed',
+      date: new Date(Date.now() - 3600000 * 2).toISOString()
+    },
+    {
+      id: 2,
+      fiscal_id: 'CHK-4B11E9',
+      amount: 100000,
+      purpose: "Kuzatuv kameralari o'rnatish",
+      provider: 'Click',
+      payer_name: 'Zuhra Rustamova',
+      payer_phone: '+998 93 456 78 90',
+      card_mask: '9860 **** **** 5678',
+      status: 'completed',
+      date: new Date(Date.now() - 3600000 * 5).toISOString()
+    },
+    {
+      id: 3,
+      fiscal_id: 'CHK-99DA03',
+      amount: 500000,
+      purpose: "Yashil Makon daraxt ekish",
+      provider: 'Uzum',
+      payer_name: 'Islombek Yoqubov',
+      payer_phone: '+998 97 789 01 23',
+      card_mask: '8600 **** **** 9012',
+      status: 'completed',
+      date: new Date(Date.now() - 3600000 * 12).toISOString()
+    }
+  ]);
+
+  // Fetch initial data from backend API with fallback
   useEffect(() => {
-    const fetchData = async () => {
+    let isMounted = true;
+    const initData = async () => {
       try {
-        const reqRes = await fetch('http://localhost:3001/api/requests');
-        const reqData = await reqRes.json();
-        if (reqData && reqData.length > 0) setRequests(reqData);
+        const [backendRequests, backendUtilities, backendResidents, backendFund, backendPayments, backendNews] = await Promise.all([
+          apiService.getRequests(),
+          apiService.getUtilities(),
+          apiService.getResidents(),
+          apiService.getFundStats(),
+          apiService.getPayments(),
+          apiService.getNews()
+        ]);
 
-        const utilRes = await fetch('http://localhost:3001/api/utilities');
-        const utilData = await utilRes.json();
-        if (utilData && utilData.length > 0) setUtilities(utilData);
-
-        const newsRes = await fetch('http://localhost:3001/api/news');
-        const newsData = await newsRes.json();
-        if (newsData && newsData.length > 0) setNewsList(newsData);
+        if (isMounted) {
+          if (backendRequests && backendRequests.length > 0) setRequests(backendRequests);
+          if (backendUtilities) setUtilities(prev => ({ ...prev, ...backendUtilities }));
+          if (backendResidents && backendResidents.length > 0) setResidentsList(backendResidents);
+          if (backendFund) setFundStats(backendFund);
+          if (backendPayments && backendPayments.length > 0) setPaymentsList(backendPayments);
+          if (backendNews && backendNews.length > 0) setNewsList(backendNews);
+        }
       } catch (err) {
-        console.error("Failed to fetch backend data", err);
+        console.warn("Backend data fallback initialized", err);
       }
     };
-    fetchData();
+    initData();
+    return () => { isMounted = false; };
   }, []);
 
-  // Add toast notification
-  const addToast = (message, type = 'info') => {
-    const id = Date.now();
+  // Toast notification
+  const addToast = useCallback((message, type = 'info') => {
+    const id = Date.now() + Math.random();
     setToasts((prev) => [...prev, { id, message, type }]);
     setTimeout(() => {
       setToasts((prev) => prev.filter((t) => t.id !== id));
     }, 4000);
-  };
+  }, []);
 
-  // Submit new civic issue report via backend API
-  const submitReport = async (reportData) => {
-    const newRequest = {
-      title: reportData.title || "Yangi Murojaat",
-      description: reportData.description || "",
-      address: reportData.address || "Mahalla hududi",
-      category: reportData.category || "Ko'cha Chiroqlari",
-      urgency: reportData.urgency || "Oddiy",
-      author: reportData.author || (reportData.isAnonymous ? "Anonim fuqaro" : "Mahalla rezidenti"),
-      phone: reportData.phone || "+998 -- --- -- --",
-      status: "Ko'rib chiqilmoqda"
-    };
+  const removeToast = useCallback((id) => {
+    setToasts((prev) => prev.filter((t) => t.id !== id));
+  }, []);
 
+  // Authentication Login
+  const login = async (role, credentials) => {
     try {
-      const res = await fetch('http://localhost:3001/api/requests', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newRequest)
-      });
-      const data = await res.json();
-      setRequests((prev) => [data, ...prev]);
-      addToast(`Murojaatingiz qabul qilindi! ID: #${data.id}. Telegram bot orqali raisga yo'llandi.`, 'success');
+      const response = await apiService.login(role, credentials);
+      if (response && response.success) {
+        setIsAuthenticated(true);
+        setUserRole(role);
+        setUserData(response.user);
+        setAuthToken(response.token);
+
+        localStorage.setItem('mahalla_auth', 'true');
+        localStorage.setItem('mahalla_role', role);
+        localStorage.setItem('mahalla_token', response.token);
+        localStorage.setItem('mahalla_user_data', JSON.stringify(response.user));
+
+        addToast(`Xush kelibsiz, ${response.user.name || 'Foydalanuvchi'}!`, 'success');
+        return { success: true };
+      }
+      return { success: false, error: response?.error || "Kirishda xatolik" };
     } catch (err) {
-      console.error(err);
-      addToast(`Murojaatni yuborishda xatolik yuz berdi`, 'error');
+      return { success: false, error: "Serverga ulanish xatosi" };
     }
   };
 
-  // Update request status (for Admin)
-  const updateRequestStatus = (id, newStatus, statusType) => {
-    setRequests((prev) =>
-      prev.map((req) => (req.id === id ? { ...req, status: newStatus, statusType } : req))
-    );
-    addToast(`Murojaat ${id} holati "${newStatus}"ga o'zgartirildi`, 'success');
+  // Logout
+  const logout = useCallback(() => {
+    setIsAuthenticated(false);
+    setUserRole(null);
+    setUserData(null);
+    setAuthToken(null);
+    localStorage.removeItem('mahalla_auth');
+    localStorage.removeItem('mahalla_role');
+    localStorage.removeItem('mahalla_token');
+    localStorage.removeItem('mahalla_user_data');
+    addToast("Tizimdan muvaffaqiyatli chiqildi", 'info');
+  }, [addToast]);
+
+  // Request Submission
+  const addRequest = async (requestData) => {
+    const newRequest = await apiService.createRequest({
+      ...requestData,
+      author: userData?.name || requestData.author || 'Mahalla fuqarosi',
+      phone: userData?.phone || requestData.phone || '+998 90 000 00 00'
+    });
+
+    setRequests((prev) => [newRequest, ...prev]);
+    addToast("Murojaatingiz qabul qilindi va ro'yxatga olindi!", 'success');
+    return newRequest;
   };
 
-  // Toggle or update utility status
-  const updateUtilityStatus = (id, newStatus, level, statusText, type) => {
-    setUtilities((prev) =>
-      prev.map((u) =>
-        u.id === id
-          ? {
-              ...u,
-              status: newStatus,
-              level: level !== undefined ? level : u.level,
-              statusText: statusText || u.statusText,
-              type: type || u.type,
-              lastUpdate: 'Bugun, ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-            }
-          : u
+  // Update Request Status
+  const updateRequestStatus = async (id, newStatus, newType = 'in_progress') => {
+    setRequests((prev) =>
+      prev.map((req) =>
+        req.id === id ? { ...req, status: newStatus, type: newType } : req
       )
     );
-    addToast(`Kommunal tarmoq holati yangilandi!`, 'info');
+    await apiService.updateRequestStatus(id, newStatus, newType);
+    addToast(`Murojaat holati "${newStatus}" ga o'zgartirildi`, 'info');
   };
 
-  // Register new resident
-  const registerResident = (residentData) => {
-    addToast(`Tabriklaymiz! ${residentData.fullName || 'Fuqaro'} muvaffaqiyatli ro'yxatga olindi. Mahalla ID berildi.`, 'success');
+  // Delete Request
+  const deleteRequest = async (id) => {
+    setRequests((prev) => prev.filter((r) => r.id !== id));
+    addToast("Murojaat o'chirildi", 'info');
   };
 
-  // Add new master to marketplace
-  const addMaster = (masterData) => {
-    const newMaster = {
-      id: masters.length + 1,
-      name: masterData.name,
-      specialty: masterData.specialty,
-      rating: 5.0,
-      jobsCount: 1,
-      phone: masterData.phone,
-      description: masterData.description,
-      experience: masterData.experience || "Yangi usta",
-      available: true,
-      avatar: masterData.avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80"
+  // Residents Management
+  const addResident = async (residentData) => {
+    const created = await apiService.createResident(residentData);
+    setResidentsList((prev) => [created, ...prev]);
+    addToast("Yangi fuqaro ro'yxatga qo'shildi!", 'success');
+    return created;
+  };
+
+  const deleteResident = async (id) => {
+    setResidentsList((prev) => prev.filter((res) => res.id !== id));
+    await apiService.deleteResident(id);
+    addToast("Fuqaro ro'yxatdan o'chirildi", 'info');
+  };
+
+  // News Management
+  const addNews = async (newsData) => {
+    const created = await apiService.createNews(newsData);
+    setNewsList((prev) => [created, ...prev]);
+    addToast("Yangi xabar (yangilik) muvaffaqiyatli qo'shildi!", 'success');
+    return created;
+  };
+
+  const deleteNews = async (id) => {
+    setNewsList((prev) => prev.filter((news) => news.id !== id));
+    await apiService.deleteNews(id);
+    addToast("Yangilik o'chirildi", 'info');
+  };
+
+  // User Profile
+  const updateUserAvatar = async (avatarUrl) => {
+    if (userData) {
+      await apiService.updateUserAvatar(userData.id, avatarUrl);
+      const updatedUser = { ...userData, avatar: avatarUrl };
+      setUserData(updatedUser);
+      localStorage.setItem('mahalla_user_data', JSON.stringify(updatedUser));
+      addToast("Profil rasmi yangilandi", 'success');
+    }
+  };
+
+  // Payments / Fund Donation
+  const makePayment = async (paymentPayload) => {
+    const payment = await apiService.createPayment({
+      ...paymentPayload,
+      payer_name: paymentPayload.payer_name || userData?.name || 'Mahalla faoli',
+      payer_phone: paymentPayload.payer_phone || userData?.phone || '+998 90 123 45 67'
+    });
+
+    // Update local state
+    setPaymentsList((prev) => [payment, ...prev]);
+    setFundStats((prev) => ({
+      ...prev,
+      collected_amount: prev.collected_amount + (payment.amount || 0),
+      contributors_count: prev.contributors_count + 1
+    }));
+
+    // Trigger electronic receipt view
+    setActiveReceipt(payment);
+    setIsFundModalOpen(false);
+    addToast(`To'lov muvaffaqiyatli amalga oshirildi: ${Number(payment.amount).toLocaleString('uz-UZ')} so'm!`, 'success');
+    return payment;
+  };
+
+  // Update Utility Status
+  const updateUtilityStatus = async (serviceKey, newStatus, newPercentage, newMessage, statusType) => {
+    const updated = {
+      ...utilities,
+      [serviceKey]: {
+        ...utilities[serviceKey],
+        status: newStatus,
+        percentage: newPercentage,
+        message: newMessage,
+        statusType: statusType || (newStatus === 'Online' ? 'online' : 'maintenance')
+      }
     };
-    setMasters((prev) => [newMaster, ...prev]);
-    addToast("Xizmatingiz Mahalla Marketpleysiga qo'shildi!", 'success');
+    setUtilities(updated);
+    await apiService.updateUtilities(updated);
+    addToast(`${serviceKey.toUpperCase()} ta'minoti yangilandi`, 'success');
   };
 
   return (
     <MahallaContext.Provider
       value={{
+        // Auth
+        isAuthenticated,
+        userRole,
+        userData,
+        authToken,
+        login,
+        logout,
+        updateUserAvatar,
+
+        // Settings
         activeTab,
         setActiveTab,
         language,
         setLanguage,
         theme,
         setTheme,
-        mahallaInfo: MAHALLA_INFO,
+
+        // Core Data
+        mahallaInfo,
+        setMahallaInfo,
         utilities,
+        setUtilities,
         updateUtilityStatus,
         newsList,
         setNewsList,
+        addNews,
+        deleteNews,
         leaders,
+        setLeaders,
         masters,
-        addMaster,
+        setMasters,
         requests,
-        submitReport,
+        setRequests,
+        addRequest,
         updateRequestStatus,
+        deleteRequest,
         leaderboard,
+        setLeaderboard,
         rewards,
         emergencyContacts,
+
+        // Fund & Payments
+        fundStats,
+        setFundStats,
+        paymentsList,
+        setPaymentsList,
+        makePayment,
+        isFundModalOpen,
+        setIsFundModalOpen,
+        activeReceipt,
+        setActiveReceipt,
+
+        // Admin Specific
+        residentsList,
+        setResidentsList,
+        addResident,
+        deleteResident,
+        servicesList,
+        setServicesList,
+
+        // Modals & UI
         selectedNews,
         setSelectedNews,
         selectedRequest,
@@ -188,9 +397,13 @@ export const MahallaProvider = ({ children }) => {
         setSelectedLeader,
         isReportModalOpen,
         setIsReportModalOpen,
-        registerResident,
+        isAuthModalOpen,
+        setIsAuthModalOpen,
+
+        // Toasts
         toasts,
-        addToast
+        addToast,
+        removeToast
       }}
     >
       {children}
@@ -198,4 +411,11 @@ export const MahallaProvider = ({ children }) => {
   );
 };
 
-export const useMahalla = () => useContext(MahallaContext);
+export const useMahalla = () => {
+  const context = useContext(MahallaContext);
+  if (!context) {
+    throw new Error('useMahalla must be used within a MahallaProvider');
+  }
+  return context;
+};
+
