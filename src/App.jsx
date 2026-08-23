@@ -34,6 +34,7 @@ const LeaderboardPage = lazy(() => import('./components/leaderboard/LeaderboardP
 const MarketplacePage = lazy(() => import('./components/marketplace/MarketplacePage').then(m => ({ default: m.MarketplacePage })));
 const ProfilePage = lazy(() => import('./components/profile/ProfilePage').then(m => ({ default: m.ProfilePage })));
 const LoginPage = lazy(() => import('./components/auth/LoginPage').then(m => ({ default: m.LoginPage })));
+const CommunityChat = lazy(() => import('./components/chat/CommunityChat').then(m => ({ default: m.CommunityChat })));
 
 // Sleek fallback loader for subroutes
 const PageLoader = () => (
@@ -151,6 +152,7 @@ const AppRoutes = () => {
         <Route path="/archive" element={<ArchivePage />} />
         <Route path="/leaderboard" element={<LeaderboardPage />} />
         <Route path="/marketplace" element={<MarketplacePage />} />
+        <Route path="/chat" element={<CommunityChat />} />
         <Route 
           path="/profile" 
           element={

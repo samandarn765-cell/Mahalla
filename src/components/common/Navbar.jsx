@@ -25,6 +25,7 @@ export const Navbar = () => {
     { path: '/about', label: t('nav.about', { defaultValue: 'Mahalla haqida' }) },
     { path: '/services', label: t('nav.services', { defaultValue: 'Xizmatlar' }) },
     { path: '/marketplace', label: t('nav.marketplace', { defaultValue: 'Ustalar' }) },
+    { path: '/chat', label: t('nav.chat', { defaultValue: 'Mahalla Chati' }) },
     { path: '/archive', label: t('nav.archive', { defaultValue: 'Arxiv' }) }
   ];
 

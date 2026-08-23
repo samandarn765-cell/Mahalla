@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Home, Newspaper, Plus, BarChart2, Award } from 'lucide-react';
+import { Home, Newspaper, Plus, MessageCircle, Award } from 'lucide-react';
 
 export const MobileBottomNav = () => {
   return (
@@ -54,9 +54,9 @@ export const MobileBottomNav = () => {
         <span className="text-[10px] font-medium text-gray-500 dark:text-slate-400 tracking-wide mt-1">Hisobot</span>
       </NavLink>
 
-      {/* Analysis (Tahlil) */}
+      {/* Chat */}
       <NavLink
-        to="/archive"
+        to="/chat"
         className={({ isActive }) =>
           `flex flex-col items-center gap-1 w-16 transition-all duration-300 ${
             isActive ? 'text-emerald-600 dark:text-white' : 'text-gray-400 dark:text-slate-500 hover:text-emerald-500 dark:hover:text-slate-300'
@@ -66,9 +66,9 @@ export const MobileBottomNav = () => {
         {({ isActive }) => (
           <>
             <div className={`relative ${isActive ? 'dark:drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]' : ''}`}>
-              <BarChart2 className={`w-6 h-6 ${isActive ? 'dark:fill-white/20 fill-emerald-100 dark:text-white text-emerald-600' : ''}`} />
+              <MessageCircle className={`w-6 h-6 ${isActive ? 'dark:fill-white/20 fill-emerald-100 dark:text-white text-emerald-600' : ''}`} />
             </div>
-            <span className="text-[10px] font-medium tracking-wide">Tahlil</span>
+            <span className="text-[10px] font-medium tracking-wide">Suhbat</span>
           </>
         )}
       </NavLink>
