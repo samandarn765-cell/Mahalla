@@ -88,5 +88,14 @@
   "beforeAfter": {
     "title": "Before and After",
     "subtitle": "Results of the practical work implemented in our mahalla"
+  },
+  "chat": {
+    "title": "Community Chat",
+    "subtitle": "Communication and discussions with neighbors",
+    "online": "online",
+    "today": "Today",
+    "admin": "Admin",
+    "placeholder": "Type a message... (Press Enter to send)",
+    "membersTitle": "Community Members"
   }
 }

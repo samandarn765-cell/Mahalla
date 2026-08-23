@@ -88,5 +88,14 @@
   "beforeAfter": {
     "title": "Oldin va Keyin",
     "subtitle": "Mahallamizda amalga oshirilgan amaliy ishlar natijasi"
+  },
+  "chat": {
+    "title": "Mahalla Chati",
+    "subtitle": "Qo'shnilar bilan muloqot va muhokamalar",
+    "online": "onlayn",
+    "today": "Bugun",
+    "admin": "Admin",
+    "placeholder": "Xabar yozing... (Enter orqali yuborish)",
+    "membersTitle": "Jamoa A'zolari"
   }
 }
