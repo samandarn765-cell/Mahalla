@@ -3,6 +3,7 @@ import { Routes, Route, Outlet, Navigate } from 'react-router-dom';
 import { MahallaProvider, useMahalla } from './context/MahallaContext';
 import { Navbar } from './components/common/Navbar';
 import { Footer } from './components/common/Footer';
+import { MobileBottomNav } from './components/common/MobileBottomNav';
 import { Modal } from './components/common/Modal';
 import { AIChatbot } from './components/common/AIChatbot';
 import { Toast } from './components/common/Toast';
@@ -52,12 +53,13 @@ const PublicLayout = () => {
     <div className="min-h-screen relative flex flex-col justify-between selection:bg-cyan-500 selection:text-slate-950 bg-gray-50 dark:bg-[#0A0F1D] text-gray-900 dark:text-white transition-colors duration-300">
       <div className="relative z-10 flex flex-col min-h-screen">
         <Navbar />
-        <main className="flex-grow" id="main-content">
+        <main className="flex-grow pb-20 md:pb-0" id="main-content">
           <Suspense fallback={<PageLoader />}>
             <Outlet />
           </Suspense>
         </main>
         <Footer />
+        <MobileBottomNav />
         <AIChatbot />
         <SOSButton />
       </div>
