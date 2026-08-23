@@ -9,11 +9,11 @@ export const BeforeAfterSlider = () => {
   const cases = [
     {
       id: 1,
-      title: "Alisher Navoiy ko'chasi — Yo'l va chiroqlar yangilandi",
+      title: t('beforeAfterItems.street', { defaultValue: "Alisher Navoiy ko'chasi — Yo'l va chiroqlar yangilandi" }),
       beforeImg: "/src/assets/images/road-before.jpg",
       afterImg: "/src/assets/images/road-after.jpg",
       category: "Yo'l va Yoritish",
-      time: "3 kun ichida hal etildi"
+      time: t('beforeAfterItems.resolved', { defaultValue: "3 kun ichida hal etildi" })
     }
   ];
 
@@ -50,7 +50,7 @@ export const BeforeAfterSlider = () => {
               className="absolute inset-0 w-full h-full object-cover"
             />
             <div className="absolute top-4 right-4 px-3 py-1 rounded-xl bg-emerald-600/90 text-white text-xs font-bold shadow-lg">
-              ✨ Keyin (Bajarildi)
+              ✨ {t('beforeAfter.after', { defaultValue: 'Keyin (Bajarildi)' })}
             </div>
 
             {/* Before Image (Clipped by slider position) */}
@@ -67,7 +67,7 @@ export const BeforeAfterSlider = () => {
                 style={{ width: '100%', minWidth: '100%' }}
               />
               <div className="absolute top-4 left-4 px-3 py-1 rounded-xl bg-slate-900/90 text-amber-300 text-xs font-bold border border-white/10 shadow-lg">
-                ⚠️ Oldin (Muammo)
+                ⚠️ {t('beforeAfter.before', { defaultValue: 'Oldin (Muammo)' })}
               </div>
             </div>
 

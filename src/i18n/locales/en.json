@@ -87,7 +87,9 @@
   },
   "beforeAfter": {
     "title": "Before and After",
-    "subtitle": "Results of the practical work implemented in our mahalla"
+    "subtitle": "Results of the practical work implemented in our mahalla",
+    "after": "After (Done)",
+    "before": "Before (Issue)"
   },
   "chat": {
     "title": "Community Chat",
@@ -97,5 +99,49 @@
     "admin": "Admin",
     "placeholder": "Type a message... (Press Enter to send)",
     "membersTitle": "Community Members"
+  },
+  "fund": {
+    "title": "Contributing to the future of our mahalla together",
+    "desc": "Every sum is spent 100% transparently and openly. Pay the sponsorship or improvement fee and get an official QR-coded electronic receipt immediately.",
+    "project": "Current target project:",
+    "projectName": "Children's playground and 'Yashil Makon' alley",
+    "donateBtn": "Contribute / Make payment",
+    "collected": "Collected amount",
+    "goal": "Goal",
+    "progress": "Plan execution",
+    "sponsors": "Number of sponsors",
+    "transparency": "Transparency",
+    "open": "Open",
+    "recent": "Recent receipts:"
+  },
+  "poll": {
+    "title": "Weekly Poll",
+    "question": "What do you suggest building in the center of our mahalla?",
+    "totalVotes": "Total votes:",
+    "opt1": "Modern children's playground",
+    "opt2": "Workout and sports area",
+    "opt3": "Green alley for the elderly",
+    "opt4": "Parking lot"
+  },
+  "map": {
+    "title": "Real Interactive Mahalla Map",
+    "subtitle": "Live Map of Our Mahalla",
+    "desc": "View and monitor the community center, medical point, school, repair areas, and all important points on a real map.",
+    "filterAll": "All",
+    "filterAdmin": "Office & Services",
+    "filterMed": "Medicine",
+    "filterEdu": "Education & Sports",
+    "filterRepair": "Repair",
+    "legendTitle": "Mahalla Objects:",
+    "legendAdmin": "Community Center & Admin Office",
+    "legendMed": "Medicine & Green Alley",
+    "legendEdu": "School & Kindergarten",
+    "legendRepair": "Repair areas"
+  },
+  "beforeAfterItems": {
+    "street": "Alisher Navoi Street — Road and lights updated",
+    "resolved": "resolved in 3 days",
+    "park": "Yashil Makon — New children's playground built",
+    "resolved2": "resolved in 1 week"
   }
 }

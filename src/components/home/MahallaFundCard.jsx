@@ -46,11 +46,11 @@ export const MahallaFundCard = () => {
               </div>
 
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-snug">
-                Mahallamiz kelajagiga <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400">birgalikda hissa qo'shamiz</span>
+                {t('fund.title', { defaultValue: "Mahallamiz kelajagiga birgalikda hissa qo'shamiz" })}
               </h2>
 
               <p className="text-sm sm:text-base text-slate-300 font-normal leading-relaxed max-w-xl">
-                Har bir so'm 100% shaffof va ochiq sarflanadi. Homiylik yoki obodonlashtirish badali to'lab, darhol rasmiy QR-kodli elektron chek oling.
+                {t('fund.desc', { defaultValue: "Har bir so'm 100% shaffof va ochiq sarflanadi. Homiylik yoki obodonlashtirish badali to'lab, darhol rasmiy QR-kodli elektron chek oling." })}
               </p>
 
               {/* Current Project Goal Badge */}
@@ -59,9 +59,9 @@ export const MahallaFundCard = () => {
                   <Target className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="text-xs text-slate-400 font-medium">Hozirgi maqsadli loyiha:</div>
+                  <div className="text-xs text-slate-400 font-medium">{t('fund.project', { defaultValue: 'Hozirgi maqsadli loyiha:' })}</div>
                   <div className="text-sm font-bold text-white mt-0.5">
-                    {fundStats?.target_title || "Bolalar o'yingohi va 'Yashil Makon' xiyoboni barpo etish"}
+                    {fundStats?.target_title || t('fund.projectName', { defaultValue: "Bolalar o'yingohi va 'Yashil Makon' xiyoboni barpo etish" })}
                   </div>
                 </div>
               </div>
@@ -72,9 +72,7 @@ export const MahallaFundCard = () => {
                   onClick={() => setIsFundModalOpen(true)}
                   className="px-7 py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-bold text-sm sm:text-base shadow-[0_10px_25px_rgba(16,185,129,0.3)] hover:shadow-[0_15px_35px_rgba(16,185,129,0.45)] transition-all flex items-center gap-2.5 cursor-pointer active:scale-95"
                 >
-                  <HeartHandshake className="w-5 h-5 text-slate-950" />
-                  <span>Hissa qo'shish / To'lov qilish</span>
-                  <ArrowRight className="w-4 h-4 text-slate-950" />
+                  <span>{t('fund.donateBtn', { defaultValue: "Hissa qo'shish / To'lov qilish" })}</span>
                 </button>
 
                 <div className="flex items-center gap-2 text-xs text-slate-400 font-semibold">
@@ -90,15 +88,11 @@ export const MahallaFundCard = () => {
               <div className="p-6 sm:p-8 rounded-2xl bg-slate-900/80 border border-slate-800 backdrop-blur-xl shadow-xl space-y-6">
                 {/* Stats row */}
                 <div className="flex justify-between items-end">
-                  <div>
-                    <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Yig'ilgan mablag'</div>
-                    <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono mt-1">
+                    <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider">{t('fund.collected', { defaultValue: "Yig'ilgan mablag'" })}</div>
                       {collected.toLocaleString('uz-UZ')} <span className="text-sm font-bold text-emerald-400">UZS</span>
                     </div>
                   </div>
-                  <div className="text-right">
-                    <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Maqsad</div>
-                    <div className="text-sm sm:text-base font-bold text-slate-300 font-mono mt-1">
+                    <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider">{t('fund.goal', { defaultValue: 'Maqsad' })}</div>
                       {target.toLocaleString('uz-UZ')} UZS
                     </div>
                   </div>
@@ -106,9 +100,7 @@ export const MahallaFundCard = () => {
 
                 {/* Progress bar */}
                 <div>
-                  <div className="flex justify-between text-xs font-bold text-slate-300 mb-2">
-                    <span>Reja ijrosi</span>
-                    <span className="text-emerald-400">{percentage}%</span>
+                    <span>{t('fund.progress', { defaultValue: 'Reja ijrosi' })}</span>
                   </div>
                   <div className="w-full h-3.5 bg-slate-950 rounded-full overflow-hidden p-0.5 border border-slate-800">
                     <motion.div
@@ -125,26 +117,22 @@ export const MahallaFundCard = () => {
                 <div className="grid grid-cols-2 gap-3 pt-2">
                   <div className="p-3 rounded-xl bg-white/5 border border-white/5">
                     <div className="flex items-center gap-1.5 text-xs text-slate-400">
-                      <Users className="w-3.5 h-3.5 text-cyan-400" />
-                      <span>Homiylar soni</span>
-                    </div>
+                      <span>{t('fund.sponsors', { defaultValue: 'Homiylar soni' })}</span>
                     <div className="text-lg font-bold text-white mt-1">{contributors} nafar</div>
                   </div>
 
                   <div className="p-3 rounded-xl bg-white/5 border border-white/5">
                     <div className="flex items-center gap-1.5 text-xs text-slate-400">
                       <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                      <span>Shaffoflik</span>
+                      <span>{t('fund.transparency', { defaultValue: 'Shaffoflik' })}</span>
                     </div>
-                    <div className="text-lg font-bold text-emerald-400 mt-1">100% Ochiq</div>
+                    <div className="text-lg font-bold text-emerald-400 mt-1">100% {t('fund.open', { defaultValue: 'Ochiq' })}</div>
                   </div>
                 </div>
 
                 {/* Mini Recent Transactions Ticker */}
                 {paymentsList && paymentsList.length > 0 && (
-                  <div className="pt-2 border-t border-slate-800 space-y-2">
-                    <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Oxirgi tushumlar:</div>
-                    <div className="space-y-1.5 max-h-24 overflow-y-auto pr-1">
+                    <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">{t('fund.recent', { defaultValue: 'Oxirgi tushumlar:' })}</div>
                       {paymentsList.slice(0, 3).map((item, idx) => (
                         <div key={idx} className="flex justify-between items-center text-xs text-slate-300 bg-white/[0.03] px-2.5 py-1.5 rounded-lg">
                           <span className="truncate max-w-[140px] font-medium">{item.payer_name || "Mahalla faoli"}</span>

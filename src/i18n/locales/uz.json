@@ -87,7 +87,9 @@
   },
   "beforeAfter": {
     "title": "Oldin va Keyin",
-    "subtitle": "Mahallamizda amalga oshirilgan amaliy ishlar natijasi"
+    "subtitle": "Mahallamizda amalga oshirilgan amaliy ishlar natijasi",
+    "after": "Keyin (Bajarildi)",
+    "before": "Oldin (Muammo)"
   },
   "chat": {
     "title": "Mahalla Chati",
@@ -97,5 +99,49 @@
     "admin": "Admin",
     "placeholder": "Xabar yozing... (Enter orqali yuborish)",
     "membersTitle": "Jamoa A'zolari"
+  },
+  "fund": {
+    "title": "Mahallamiz kelajagiga birgalikda hissa qo'shamiz",
+    "desc": "Har bir so'm 100% shaffof va ochiq sarflanadi. Homiylik yoki obodonlashtirish badali to'lab, darhol rasmiy QR-kodli elektron chek oling.",
+    "project": "Hozirgi maqsadli loyiha:",
+    "projectName": "Bolalar o'yingohi va 'Yashil Makon' xiyoboni",
+    "donateBtn": "Hissa qo'shish / To'lov qilish",
+    "collected": "Yig'ilgan mablag'",
+    "goal": "Maqsad",
+    "progress": "Reja ijrosi",
+    "sponsors": "Homiylar soni",
+    "transparency": "Shaffoflik",
+    "open": "Ochiq",
+    "recent": "Oxirgi tushumlar:"
+  },
+  "poll": {
+    "title": "Haftalik So'rovnoma",
+    "question": "Mahallamiz markaziga nima qurishni taklif qilasiz?",
+    "totalVotes": "Jami ovozlar:",
+    "opt1": "Zamonaviy bolalar maydonchasi",
+    "opt2": "Workout va sport maydonchasi",
+    "opt3": "Keksalar uchun yashil xiyobon",
+    "opt4": "Avtoturargoh"
+  },
+  "map": {
+    "title": "Haqiqiy Interaktiv Mahalla Haritasi",
+    "subtitle": "Mahallamiz Jonli Haritasi",
+    "desc": "Guzar, tibbiyot punkti, maktab, ta'mirlash hududlari va barcha muhim nuqtalarni real xaritada ko'ring va monitoring qiling.",
+    "filterAll": "Barchasi",
+    "filterAdmin": "Idora & Xizmatlar",
+    "filterMed": "Tibbiyot",
+    "filterEdu": "Ta'lim & Sport",
+    "filterRepair": "Ta'mirlash",
+    "legendTitle": "Mahalla Ob'ektlari:",
+    "legendAdmin": "Guzar & Boshqaruv idorasi",
+    "legendMed": "Tibbiyot & Yashil xiyobon",
+    "legendEdu": "Maktab & Bog'cha",
+    "legendRepair": "Ta'mirlash hududlari"
+  },
+  "beforeAfterItems": {
+    "street": "Alisher Navoiy ko'chasi — Yo'l va chiroqlar yangilandi",
+    "resolved": "3 kun ichida hal etildi",
+    "park": "Yashil Makon — Yangi bolalar maydonchasi qurildi",
+    "resolved2": "1 haftada hal etildi"
   }
 }

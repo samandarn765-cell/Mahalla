@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { PieChart, CheckCircle2 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export const CommunityPoll = () => {
+  const { t } = useTranslation();
   const [hasVoted, setHasVoted] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
 
-  const pollQuestion = "Mahallamiz markaziga nima qurishni taklif qilasiz?";
+  const pollQuestion = t('poll.question', { defaultValue: "Mahallamiz markaziga nima qurishni taklif qilasiz?" });
   
   const [options, setOptions] = useState([
-    { id: 1, text: "Zamonaviy bolalar maydonchasi", votes: 145, color: "bg-cyan-500" },
-    { id: 2, text: "Workout va sport maydonchasi", votes: 89, color: "bg-emerald-500" },
-    { id: 3, text: "Keksalar uchun yashil xiyobon", votes: 112, color: "bg-amber-500" },
-    { id: 4, text: "Avtoturargoh", votes: 45, color: "bg-rose-500" }
+    { id: 1, text: t('poll.opt1', { defaultValue: "Zamonaviy bolalar maydonchasi" }), votes: 145, color: "bg-cyan-500" },
+    { id: 2, text: t('poll.opt2', { defaultValue: "Workout va sport maydonchasi" }), votes: 89, color: "bg-emerald-500" },
+    { id: 3, text: t('poll.opt3', { defaultValue: "Keksalar uchun yashil xiyobon" }), votes: 112, color: "bg-amber-500" },
+    { id: 4, text: t('poll.opt4', { defaultValue: "Avtoturargoh" }), votes: 45, color: "bg-rose-500" }
   ]);
 
   const totalVotes = options.reduce((acc, curr) => acc + curr.votes, 0);
@@ -42,9 +44,9 @@ export const CommunityPoll = () => {
               </div>
             </div>
             <div className="text-center sm:text-left">
-              <span className="text-cyan-400 font-bold text-sm uppercase tracking-wider mb-1 block">Haftalik So'rovnoma</span>
+              <span className="text-cyan-400 font-bold text-sm uppercase tracking-wider mb-1 block">{t('poll.title', { defaultValue: "Haftalik So'rovnoma" })}</span>
               <h2 className="text-2xl sm:text-3xl font-bold text-white">{pollQuestion}</h2>
-              <p className="text-slate-400 text-sm mt-2">Jami ovozlar: <span className="text-white font-bold">{totalVotes}</span></p>
+              <p className="text-slate-400 text-sm mt-2">{t('poll.totalVotes', { defaultValue: "Jami ovozlar:" })} <span className="text-white font-bold">{totalVotes}</span></p>
             </div>
           </div>
 

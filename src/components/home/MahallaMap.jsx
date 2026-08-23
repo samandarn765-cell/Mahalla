@@ -83,11 +83,11 @@ export const MahallaMap = () => {
   ];
 
   const categories = [
-    { id: 'all', label: 'Barchasi', icon: <Layers className="w-4 h-4" /> },
-    { id: 'admin', label: 'Idora & Xizmatlar', icon: <Building2 className="w-4 h-4" /> },
-    { id: 'medical', label: 'Tibbiyot', icon: <HeartPulse className="w-4 h-4" /> },
-    { id: 'education', label: "Ta'lim & Sport", icon: <GraduationCap className="w-4 h-4" /> },
-    { id: 'utility', label: "Ta'mirlash", icon: <Wrench className="w-4 h-4" /> }
+    { id: 'all', label: t('map.filterAll', { defaultValue: 'Barchasi' }), icon: <Layers className="w-4 h-4" /> },
+    { id: 'admin', label: t('map.filterAdmin', { defaultValue: 'Idora & Xizmatlar' }), icon: <Building2 className="w-4 h-4" /> },
+    { id: 'medical', label: t('map.filterMed', { defaultValue: 'Tibbiyot' }), icon: <HeartPulse className="w-4 h-4" /> },
+    { id: 'education', label: t('map.filterEdu', { defaultValue: "Ta'lim & Sport" }), icon: <GraduationCap className="w-4 h-4" /> },
+    { id: 'utility', label: t('map.filterRepair', { defaultValue: "Ta'mirlash" }), icon: <Wrench className="w-4 h-4" /> }
   ];
 
   useEffect(() => {
@@ -221,13 +221,13 @@ export const MahallaMap = () => {
           <div>
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-semibold mb-3">
               <Compass className="w-4 h-4 text-cyan-400 animate-spin-slow" />
-              <span>Haqiqiy Interaktiv Mahalla Haritasi</span>
+              <span>{t('map.title', { defaultValue: 'Haqiqiy Interaktiv Mahalla Haritasi' })}</span>
             </div>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight">
-              Mahallamiz <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400">Jonli Haritasi</span>
+              {t('map.subtitle', { defaultValue: 'Mahallamiz Jonli Haritasi' })}
             </h2>
             <p className="text-sm text-gray-600 dark:text-slate-400 mt-2 max-w-xl">
-              Guzar, tibbiyot punkti, maktab, ta'mirlash hududlari va barcha muhim nuqtalarni real xaritada ko'ring va monitoring qiling.
+              {t('map.desc', { defaultValue: "Guzar, tibbiyot punkti, maktab, ta'mirlash hududlari va barcha muhim nuqtalarni real xaritada ko'ring va monitoring qiling." })}
             </p>
           </div>
 
@@ -309,23 +309,23 @@ export const MahallaMap = () => {
           {/* Quick Legend at bottom right */}
           <div className="hidden sm:flex absolute top-4 left-4 p-3 rounded-2xl bg-[#091222]/90 backdrop-blur-md border border-white/10 z-10 flex-col gap-2 pointer-events-none text-left">
             <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1">
-              Mahalla Ob'ektlari:
+              {t('map.legendTitle', { defaultValue: "Mahalla Ob'ektlari:" })}
             </div>
             <div className="flex items-center gap-2 text-xs text-slate-200">
               <span className="w-2.5 h-2.5 rounded-full bg-cyan-400" />
-              <span>Guzar & Boshqaruv idorasi</span>
+              <span>{t('map.legendAdmin', { defaultValue: 'Guzar & Boshqaruv idorasi' })}</span>
             </div>
             <div className="flex items-center gap-2 text-xs text-slate-200">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
-              <span>Tibbiyot & Yashil xiyobon</span>
+              <span>{t('map.legendMed', { defaultValue: 'Tibbiyot & Yashil xiyobon' })}</span>
             </div>
             <div className="flex items-center gap-2 text-xs text-slate-200">
               <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
-              <span>Maktab & Bog'cha</span>
+              <span>{t('map.legendEdu', { defaultValue: "Maktab & Bog'cha" })}</span>
             </div>
             <div className="flex items-center gap-2 text-xs text-slate-200">
               <span className="w-2.5 h-2.5 rounded-full bg-red-500" />
-              <span>Ta'mirlash hududlari</span>
+              <span>{t('map.legendRepair', { defaultValue: "Ta'mirlash hududlari" })}</span>
             </div>
           </div>
 
