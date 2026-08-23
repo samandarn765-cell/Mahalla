@@ -81,7 +81,7 @@ export const AIChatbot = () => {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 w-14 h-14 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 shadow-2xl shadow-amber-500/20 flex items-center justify-center z-40 transition-all border border-amber-300/40 ${isOpen ? 'scale-0 pointer-events-none' : 'scale-100'}`}
+        className={`fixed bottom-24 md:bottom-6 right-6 w-14 h-14 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 shadow-2xl shadow-amber-500/20 flex items-center justify-center z-40 transition-all border border-amber-300/40 ${isOpen ? 'scale-0 pointer-events-none' : 'scale-100'}`}
         title="Mahalla AI bilan suhbat"
       >
         <MessageSquare className="w-6 h-6" />
@@ -99,7 +99,7 @@ export const AIChatbot = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="fixed bottom-6 right-4 sm:right-6 w-[calc(100vw-32px)] sm:w-[420px] h-[550px] max-h-[82vh] bg-[#0d1527] border border-amber-500/20 rounded-3xl shadow-2xl flex flex-col z-50 overflow-hidden backdrop-blur-xl"
+            className="fixed bottom-24 md:bottom-6 right-4 sm:right-6 w-[calc(100vw-32px)] sm:w-[420px] h-[550px] max-h-[82vh] bg-[#0d1527] border border-amber-500/20 rounded-3xl shadow-2xl flex flex-col z-50 overflow-hidden backdrop-blur-xl"
           >
             {/* Header */}
             <div className="px-5 py-3.5 border-b border-white/[0.08] flex items-center justify-between bg-slate-900/80 backdrop-blur-md">

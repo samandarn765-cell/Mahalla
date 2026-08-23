@@ -17,7 +17,7 @@ export const SOSButton = () => {
   };
 
   return (
-    <div className="fixed bottom-28 right-6 z-50">
+    <div className="fixed bottom-40 md:bottom-28 right-6 z-50">
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -27,7 +27,7 @@ export const SOSButton = () => {
             transition={{ duration: 0.2 }}
             role="region"
             aria-label="Favqulodda yordam xizmatlari ro'yxati"
-            className="absolute bottom-20 right-0 mb-2 w-72 glass-panel bg-slate-900/95 backdrop-blur-md rounded-2xl p-4 shadow-2xl border border-red-500/30 flex flex-col gap-2.5"
+            className="absolute bottom-20 md:bottom-20 right-0 mb-2 w-72 glass-panel bg-slate-900/95 backdrop-blur-md rounded-2xl p-4 shadow-2xl border border-red-500/30 flex flex-col gap-2.5"
           >
             <div className="flex items-center justify-between mb-1 pb-2 border-b border-white/10">
               <h3 className="text-red-500 font-bold text-xs uppercase tracking-wider flex items-center gap-1.5">
