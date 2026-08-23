@@ -88,11 +88,15 @@ export const MahallaFundCard = () => {
               <div className="p-6 sm:p-8 rounded-2xl bg-slate-900/80 border border-slate-800 backdrop-blur-xl shadow-xl space-y-6">
                 {/* Stats row */}
                 <div className="flex justify-between items-end">
+                  <div>
                     <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider">{t('fund.collected', { defaultValue: "Yig'ilgan mablag'" })}</div>
+                    <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono mt-1">
                       {collected.toLocaleString('uz-UZ')} <span className="text-sm font-bold text-emerald-400">UZS</span>
                     </div>
                   </div>
+                  <div className="text-right">
                     <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider">{t('fund.goal', { defaultValue: 'Maqsad' })}</div>
+                    <div className="text-sm sm:text-base font-bold text-slate-300 font-mono mt-1">
                       {target.toLocaleString('uz-UZ')} UZS
                     </div>
                   </div>
@@ -100,7 +104,9 @@ export const MahallaFundCard = () => {
 
                 {/* Progress bar */}
                 <div>
+                  <div className="flex justify-between text-xs font-bold text-slate-300 mb-2">
                     <span>{t('fund.progress', { defaultValue: 'Reja ijrosi' })}</span>
+                    <span className="text-emerald-400">{percentage}%</span>
                   </div>
                   <div className="w-full h-3.5 bg-slate-950 rounded-full overflow-hidden p-0.5 border border-slate-800">
                     <motion.div
@@ -117,7 +123,9 @@ export const MahallaFundCard = () => {
                 <div className="grid grid-cols-2 gap-3 pt-2">
                   <div className="p-3 rounded-xl bg-white/5 border border-white/5">
                     <div className="flex items-center gap-1.5 text-xs text-slate-400">
+                      <Users className="w-3.5 h-3.5 text-cyan-400" />
                       <span>{t('fund.sponsors', { defaultValue: 'Homiylar soni' })}</span>
+                    </div>
                     <div className="text-lg font-bold text-white mt-1">{contributors} nafar</div>
                   </div>
 
@@ -132,7 +140,9 @@ export const MahallaFundCard = () => {
 
                 {/* Mini Recent Transactions Ticker */}
                 {paymentsList && paymentsList.length > 0 && (
+                  <div className="pt-2 border-t border-slate-800 space-y-2">
                     <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">{t('fund.recent', { defaultValue: 'Oxirgi tushumlar:' })}</div>
+                    <div className="space-y-1.5 max-h-24 overflow-y-auto pr-1">
                       {paymentsList.slice(0, 3).map((item, idx) => (
                         <div key={idx} className="flex justify-between items-center text-xs text-slate-300 bg-white/[0.03] px-2.5 py-1.5 rounded-lg">
                           <span className="truncate max-w-[140px] font-medium">{item.payer_name || "Mahalla faoli"}</span>
